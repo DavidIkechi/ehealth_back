@@ -31,11 +31,12 @@ STATIC_URL = '/static/'
 SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1:8000", "https://ehealth4cancer.org", 
                  "https://ehealth4cancer.org/", "https://ehealth4cancer.org/*", "https://ehealth4cancer.org/*/*",
-                 "https:www.ehealth4cancer.org", "https:www.ehealth4cancer.org/*", "https:www.ehealth4cancer.org/*/*"
+                 "https:www.ehealth4cancer.org", "https:www.ehealth4cancer.org/*", "https:www.ehealth4cancer.org/*/*",
+                 "https://ehealthhub4cancer.github.io/ehealth_hub", "https://ehealthhub4cancer.github.io/ehealth_hub/*"
                  ]
 
 
@@ -116,11 +117,20 @@ WSGI_APPLICATION = 'ehealth_hub.wsgi.application'
 # }
 
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://postgres:qYbsIUsNCGNRuQvPfINcHdwzQXrDutLc@junction.proxy.rlwy.net:15409/railway'
+#     )
+# }
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:qYbsIUsNCGNRuQvPfINcHdwzQXrDutLc@junction.proxy.rlwy.net:15409/railway'
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True,  # Enforce SSL
     )
 }
+
 
 
 
@@ -243,16 +253,19 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-# ]
-# CORS_ALLOW_CREDENTIALS = True  # Allow cookies or credentials to be sent
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://ehealth4cancer.org",
+    "https://ehealthhub4cancer.github.io/ehealth_hub"
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': config('CLOUD_NAME'),
-#     'API_KEY': config('API_KEY'),
-#     'API_SECRET': config('API_SECRET')
-# }
+]
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies or credentials to be sent
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET')
+}
 MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
