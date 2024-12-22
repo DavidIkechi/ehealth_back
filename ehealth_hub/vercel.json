@@ -6,31 +6,23 @@
         "use": "@vercel/python",
         "config": {
           "maxLambdaSize": "50mb",
-          "runtime": "python3.9" 
+          "runtime": "python3.9"
         }
       },
       {
-        "src": "staticfiles/**/*",
+        "src": "ehealth_hub/static/**/*",
         "use": "@vercel/static"
       }
     ],
     "routes": [
       {
         "src": "/static/(.*)",
-        "dest": "/staticfiles/$1"
+        "dest": "ehealth_hub/static/$1"
       },
       {
         "src": "/(.*)",
         "dest": "ehealth_hub/wsgi.py"
       }
-    ],
-    "env": {
-        "CLOUD_NAME": "dlsebkxt4",
-        "API_KEY": "837978126796887",
-        "API_SECRET": "5jZ8sZdazcP7mT738tstluo2Ee8",
-        "DEBUG": "False",
-        "ALLOWED_HOSTS": ".vercel.app",
-        "DATABASE_URL": "your-database-url"
-    }
+    ]
   }
   
