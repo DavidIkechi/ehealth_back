@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1:8000", "https://ehealth4cancer.org", 
+ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1", "https://ehealth4cancer.org", 
                  "https://ehealth4cancer.org/", "https://ehealth4cancer.org/*", "https://ehealth4cancer.org/*/*",
                  "https:www.ehealth4cancer.org", "https:www.ehealth4cancer.org/*", "https:www.ehealth4cancer.org/*/*",
                  "https://ehealthhub4cancer.github.io/ehealth_hub", "https://ehealthhub4cancer.github.io/ehealth_hub/*"
@@ -130,10 +130,6 @@ DATABASES = {
         ssl_require=True,  # Enforce SSL
     )
 }
-
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -257,7 +253,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://ehealth4cancer.org",
-    "https://ehealthhub4cancer.github.io/ehealth_hub"
+    "https://ehealthhub4cancer.github.io"
 
 ]
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies or credentials to be sent
