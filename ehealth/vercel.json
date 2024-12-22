@@ -1,5 +1,5 @@
 {
-    "builds": [
+    "builds": 
       {
         "src": "ehealth_hub/wsgi.py",
         "use": "@vercel/python",
