@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +33,10 @@ SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1:8000", "https://ehealth4cancer.org", 
+                 "https://ehealth4cancer.org/", "https://ehealth4cancer.org/*", "https://ehealth4cancer.org/*/*",
+                 "https:www.ehealth4cancer.org", "https:www.ehealth4cancer.org/*", "https:www.ehealth4cancer.org/*/*"
+                 ]
 
 
 # Application definition
@@ -93,12 +97,32 @@ WSGI_APPLICATION = 'ehealth_hub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',       # Replace with your database name
+#         'USER': 'postgres',           # Replace with your database user
+#         'PASSWORD': 'qYbsIUsNCGNRuQvPfINcHdwzQXrDutLc',   # Replace with your database password
+#         'HOST': 'postgres.railway.internal',        # Replace with your database host (e.g., 'localhost', '127.0.0.1')
+#         'PORT': '5432',             # Default PostgreSQL port
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:qYbsIUsNCGNRuQvPfINcHdwzQXrDutLc@junction.proxy.rlwy.net:15409/railway'
+    )
 }
+
+
 
 
 # Password validation
