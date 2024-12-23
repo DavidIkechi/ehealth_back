@@ -68,6 +68,12 @@ body {
         width: 100%; /* Full-width button on small screens */
         text-align: center;
     }
+
+    .main-content h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #0077cc;
+    }
 }
 
 /* Main Content */

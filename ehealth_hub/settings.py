@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     "www.ehealth4cancer.org",
     "ehealth4cancer.eu",
     "www.ehealth4cancer.eu",
-    "ehealthhub4cancer.github.io",
+    "ehealthhub4cancer.github.io/ehealth_hub",
 ]
 # Installed apps
 INSTALLED_APPS = [
@@ -132,8 +132,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://yourdomain.com",
-    "ehealthhub4cancer.github.io",
-    "https://ehealthhub4cancer.github.io",
+    "https://ehealthhub4cancer.github.io/ehealth_hub/",
     "https://ehealth4cancer.org",
     "https://www.ehealth4cancer.org",
 
