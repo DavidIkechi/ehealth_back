@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eHealthHub - Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="{% static 'images/eHealthHub_logo.png' %}" alt="eHealthHub Logo">
+        </div>
+        <nav>
+            <a href="/main/" class="nav-link">Visit Main</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <h1>Welcome to eHealthHub</h1>
+            <p>Empowering health solutions with ease and accessibility.</p>
+            <div class="button-container">
+                <button class="btn" onclick="location.href='/e_admin/'">Login</button>
+                <button class="btn btn-secondary" onclick="location.href='/docs/'">Read Docs</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; {{ year }} eHealthHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

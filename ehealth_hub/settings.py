@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from typing import Any, Dict
 from decouple import config
 import dj_database_url
 
@@ -24,6 +25,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # URL prefix for serving static files
 STATIC_URL = '/static/'
 
+# Directory where Django will search for additional static files during development
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ehealth_hub/static')]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -34,10 +37,8 @@ SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1", "https://ehealth4cancer.org", 
-                 "https://ehealth4cancer.org/", "https://ehealth4cancer.org/*", "https://ehealth4cancer.org/*/*",
-                 "https:www.ehealth4cancer.org", "https:www.ehealth4cancer.org/*", "https:www.ehealth4cancer.org/*/*",
-                 "https://ehealthhub4cancer.github.io/ehealth_hub", "https://ehealthhub4cancer.github.io/ehealth_hub/*"
-                 ]
+                 "https:www.ehealth4cancer.org","https://ehealthhub4cancer.github.io/ehealth_hub", 
+                 "ehealth4cancer.eu", "https://ehealth4cancer.eu", "https:www.ehealth4cancer.eu"]
 
 
 # Application definition
@@ -45,7 +46,7 @@ ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1", "https://ehealth4cance
 INSTALLED_APPS = [
     # 'jet',
     'whitenoise.runserver_nostatic',
-    'grappelli',
+    'jazzmin',
     'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,11 +75,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ehealth_hub.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'ehealth_hub/templates')],  # Add this
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -265,3 +265,16 @@ CLOUDINARY_STORAGE = {
 }
 MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+GRAPPELLI_ADMIN_TITLE = "eHealth Hub Admin"
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "eHealth Admin",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "eHealth Admin",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "eHealth Admin",
+}

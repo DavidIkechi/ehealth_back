@@ -43,3 +43,6 @@ class PeopleInformationListView(generics.RetrieveAPIView):
             return PeopleInformation.objects.get(people__slug=slug)
         except PeopleInformation.DoesNotExist:
             raise NotFound(f"No PeopleInformation found for slug: {slug}")
+        
+def home(request):
+    return render(request, 'htmls/index.html')

@@ -16,9 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
+from django.shortcuts import render
+
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('e_admin/', admin.site.urls),
-    path('api/', include('ehealth_app.urls')),
+    path('', include('ehealth_app.urls'))
 ]
+
+# Custom 404 handler
+def custom_page_not_found(request, exception):
+    return render(request, 'htmls/404.html', status=404)
+
+handler404 = custom_page_not_found
