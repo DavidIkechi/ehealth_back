@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # URL prefix for serving static files
-STATIC_URL = '/static/'
+STATIC_URL = '/ehealth_hub/static/'
 
 # Directory where Django will search for additional static files during development
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ehealth_hub/static')]
@@ -34,12 +34,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ehealth_hub/static')]
 SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-
+# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 ALLOWED_HOSTS = [
     ".vercel.app",
     "localhost",
-    "127.0.0.1",
+    "127.0.0.1:8000",
     "ehealth4cancer.org",
     "www.ehealth4cancer.org",
     "ehealth4cancer.eu",
@@ -274,6 +274,9 @@ MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # GRAPPELLI_ADMIN_TITLE = "eHealth Hub Admin"
+# WHITENOISE_IGNORE_MISSING = True
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 JAZZMIN_SETTINGS = {

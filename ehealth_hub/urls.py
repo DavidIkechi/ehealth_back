@@ -22,6 +22,7 @@ from django.shortcuts import render
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('e_admin/', admin.site.urls),
     path('', include('ehealth_app.urls'))
 ]
