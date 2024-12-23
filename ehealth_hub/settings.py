@@ -36,9 +36,16 @@ SECRET_KEY = 'django-insecure-=+&e7cjhwuvi8j#kej$+s+#jdm@qsxhmy3n-%amqh-g-m+*^cd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1", "https://ehealth4cancer.org", 
-                 "https:www.ehealth4cancer.org","https://ehealthhub4cancer.github.io/ehealth_hub", 
-                 "ehealth4cancer.eu", "https://ehealth4cancer.eu", "https:www.ehealth4cancer.eu"]
+ALLOWED_HOSTS = [
+    ".vercel.app",
+    "localhost",
+    "127.0.0.1",
+    "ehealth4cancer.org",
+    "www.ehealth4cancer.org",
+    "ehealth4cancer.eu",
+    "www.ehealth4cancer.eu",
+    "ehealthhub4cancer.github.io",
+]
 
 
 # Application definition
@@ -165,7 +172,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
