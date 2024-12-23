@@ -77,7 +77,6 @@ body {
     align-items: center;
     flex: 1;
     text-align: center;
-    background: url('{% static "images/background-graphic.svg" %}') no-repeat center center;
     background-size: cover;
     padding: 40px;
 }
