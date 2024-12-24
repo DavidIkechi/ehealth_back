@@ -135,6 +135,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://ehealthhub4cancer.github.io/ehealth_hub/",
     "https://ehealth4cancer.org",
     "https://www.ehealth4cancer.org",
+    "https://ehealth4cancer.ie",
+    "https://www.ehealth4cancer.ie",
 
 ]
 
