@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TagListView, PeopleListView, PeopleInformationListView, home
+from .views import TagListView, PeopleListView, PeopleInformationListView, home, view_document
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('api/person-info/<slug:slug>/', PeopleInformationListView.as_view(), name='people-information'),
     path('', home, name='home'),
+    path('docs/', view_document, name='docs'),
 ]

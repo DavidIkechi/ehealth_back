@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tables Documentation</title>
+    <link rel="stylesheet" href="{% static 'css/documentation.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <a href="/"><img src="{% static 'images/eHealthHub_logo.png' %}" alt="Logo"></a>
+        </div>
+        <a href="/e_admin/" class="main-page-link">Login</a>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#flow-diagram">Flow Diagram</a></li>
+                <li><a href="#tag">Tag</a></li>
+                <li><a href="#people">People</a></li>
+                <li><a href="#research-interest">Research Interest</a></li>
+                <li><a href="#social-platform">Social Platform</a></li>
+                <li><a href="#people-social-link">People Social Link</a></li>
+                <li><a href="#area-of-expertise">Area of Expertise</a></li>
+                <li><a href="#role-badge">Role Badge</a></li>
+                <li><a href="#key-initiatives">Key Initiatives</a></li>
+                <li><a href="#key-research-area">Key Research Area</a></li>
+                <li><a href="#qualification">Qualification</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#people-information">People Information</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>
+                    This documentation provides a comprehensive breakdown of the tables used in the system. 
+                    These tables are the foundational components of the application, facilitating efficient 
+                    management of individuals, their areas of expertise, affiliations, and professional contributions.
+                </p>
+                <p>
+                    The relationships between these tables are carefully designed to provide a seamless integration 
+                    of data. This flow ensures that various aspects of an individual's profile, such as their skills, 
+                    achievements, and affiliations, are interconnected and manageable.
+                </p>
+                <p>
+                    <strong>Note:</strong> The diagram below is a high-level representation of how each table is 
+                    designed and how they relate to one another. It illustrates the data structure and the logical 
+                    connections between tables, which enable a cohesive and scalable system.
+                </p>
+                <p>
+                    For adding or managing data, the Admin Interface offers an intuitive view where you can easily 
+                    <strong>select</strong> and <strong>drop</strong> relationships like tags, roles, and areas of expertise 
+                    without manual effort. This streamlined approach saves time and minimizes errors when updating or 
+                    associating data across tables.
+                </p>
+            </section>
+
+            <!-- Flow Diagram Section -->
+            <section id="flow-diagram">
+                <h2>Flow Diagram</h2>
+                <p>The flow diagram below demonstrates the relationships and processes involved in managing people-related data:</p>
+                <div class="mermaid">
+                    graph TD
+                        A[Create Tag] --> B[Add People Record]
+                        B --> C[Link Research Interests]
+                        B --> D[Add Social Links]
+                        D --> Z[Add People Social]
+                        B --> E[Specify Areas of Expertise]
+                        B --> F[Add Qualifications]
+                        B --> G[Add Memberships]
+                        B --> H[Assign Role Badges]
+                        B --> I[Link Key Initiatives]
+                        B --> J[Link Research Areas]
+                        J --> K[Save People Information]
+                </div>
+                <p>The diagram illustrates the process of creating a new people record and associating it with various attributes.</p>
+                <p>A description of each data is given below: </p>
+            </section>
+
+            <!-- Tag table Section -->
+            <section id="tag">
+                <h2>Tag</h2>
+                <p>The <strong>Tag</strong>  is used to categorize individuals based on shared characteristics, enabling better filtering and organization.</p>
+                <ul>
+                    <li><strong>Fields:</strong> name, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "name": "Developer",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-02T14:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- People table Section -->
+            <section id="people">
+                <h2>People</h2>
+                <p>The <strong>People</strong> table represents an individual in the system, storing personal and professional details.</p>
+                <ul>
+                    <li><strong>Fields:</strong> title, full_name, association, image, slug, tags, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "title": "Dr.",
+    "full_name": "John Doe",
+    "association": "eHealthHub",
+    "image": "/images/profiles/john_doe.png",
+    "slug": "john-doe",
+    "tags": ["Developer", "Researcher"],
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-02T14:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Research Interest table Section -->
+            <section id="research-interest">
+                <h2>Research Interest</h2>
+                <p>The <strong>Research Interest</strong> table links individuals to topics they are passionate about.</p>
+                <ul>
+                    <li><strong>Fields:</strong> name, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "name": "Artificial Intelligence",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Social Platform table Section -->
+            <section id="social-platform">
+                <h2>Social Platform</h2>
+                <p>The <strong>Social Platform</strong> table defines platforms for professional or social profiles.</p>
+                <ul>
+                    <li><strong>Fields:</strong> name, icon, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "name": "LinkedIn",
+    "icon": "/images/icons/linkedin.png",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- People Social Link table Section -->
+            <section id="people-social-link">
+                <h2>People Social Link</h2>
+                <p>The <strong>People Social Link</strong> table associates individuals with their profiles on social platforms.</p>
+                <ul>
+                    <li><strong>Fields:</strong> people, platform, url, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "people": "John Doe",
+    "platform": "LinkedIn",
+    "url": "https://linkedin.com/in/johndoe",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Area of Expertise table Section -->
+            <section id="area-of-expertise">
+                <h2>Area of Expertise</h2>
+                <p>The <strong>Area of Expertise</strong> table highlights fields where individuals excel.</p>
+                <ul>
+                    <li><strong>Fields:</strong> name, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "name": "Machine Learning",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Role Badge table Section -->
+            <section id="role-badge">
+                <h2>Role Badge</h2>
+                <p>The <strong>Role Badge</strong> table assigns visual identifiers for roles or achievements.</p>
+                <ul>
+                    <li><strong>Fields:</strong> name, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "name": "Team Leader",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Key Initiatives table Section -->
+            <section id="key-initiatives">
+                <h2>Key Initiatives</h2>
+                <p>The <strong>Key Initiatives</strong> table tracks major projects or campaigns individuals are involved in.</p>
+                <ul>
+                    <li><strong>Fields:</strong> title, url, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "title": "AI for Healthcare",
+    "url": "https://example.com/ai-healthcare",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Qualification table Section -->
+            <section id="qualification">
+                <h2>Qualification</h2>
+                <p>The <strong>Qualification</strong> table tracks certifications or educational achievements.</p>
+                <ul>
+                    <li><strong>Fields:</strong> title, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "title": "PhD in Computer Science",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- Membership table Section -->
+            <section id="membership">
+                <h2>Membership</h2>
+                <p>The <strong>Membership</strong> table tracks affiliations with organizations or societies.</p>
+                <ul>
+                    <li><strong>Fields:</strong> title, created_at, updated_at</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "title": "IEEE Member",
+    "created_at": "2025-01-01T12:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+}
+                    </pre>
+                </ul>
+            </section>
+
+            <!-- People Information Section -->
+            <section id="people-information">
+                <h2>People Information</h2>
+                <p>The <strong>People Information</strong> table integrates related data to form a complete profile.</p>
+                <ul>
+                    <li><strong>Fields:</strong> people, about_user, institution, research_interests, areas_of_expertise, key_initiatives, key_research_areas, qualifications, memberships, role_badge</li>
+                    <li><strong>Example:</strong></li>
+                    <pre>
+{
+    "people": "John Doe",
+    "about_user": "AI researcher with a focus on healthcare solutions.",
+    "institution": "eHealthHub",
+    "research_interests": ["Artificial Intelligence"],
+    "areas_of_expertise": ["Machine Learning"],
+    "key_initiatives": ["AI for Healthcare"],
+    "qualifications": ["PhD in Computer Science"],
+    "memberships": ["IEEE Member"],
+    "role_badge": ["Team Leader"]
+}
+                    </pre>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 eHealthHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

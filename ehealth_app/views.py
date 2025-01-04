@@ -46,3 +46,6 @@ class PeopleInformationListView(generics.RetrieveAPIView):
         
 def home(request):
     return render(request, 'htmls/index.html')
+
+def view_document(request):
+    return render(request, 'htmls/docs.html')
