@@ -189,6 +189,10 @@ pre {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.mermaid:hover {
+    transform: scale(1.05); /* Slightly enlarges the element */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhances shadow for a floating effect */
+}
 /* Footer */
 footer {
     background-color: #fff;
@@ -221,7 +225,13 @@ footer p {
         transform: translateX(-250px);
         display: none;
     }
-
+    .content ul {
+        list-style: disc inside;
+        margin-left: -20px;
+        font-size: 14px;
+        color: #2b2a2a;
+    }
+    
     .sidebar.collapsed {
         transform: translateX(0);
     }
