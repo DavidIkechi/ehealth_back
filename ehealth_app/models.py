@@ -20,11 +20,13 @@ class People(models.Model):
         MR = "Mr.", "Mr."
         MRS = "Mrs.", "Mrs."
         MS = "Ms.", "Ms."
-        DR = "Dr.", "Dr."
-        PROF = "Prof.", "Prof."
+        DR = "Dr.", "Dr.",
+        ASSOC_PROF = "Assoc. Prof.", "Assoc. Prof.",
+        PROF = "Prof.", "Prof.",
+    
     
     title = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=TitleChoices.choices,
         default=TitleChoices.BLANK,
         blank=True
