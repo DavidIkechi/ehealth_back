@@ -25,7 +25,7 @@ class PeopleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('full_name',)}  # Automatically generate slugs
     list_filter = ('title', 'created_at')  # Add filters for title and creation date
     ordering = ['full_name']  # Order by full name
-
+    filter_horizontal = ['tags']  # Add horizontal filter for tags
 
 
 # PeopleInformation admin
