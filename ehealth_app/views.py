@@ -55,7 +55,7 @@ def home(request):
 def view_document(request):
     return render(request, 'htmls/docs.html')
 
-@login_required
+@login_required(login_url='/e_admin/login/')
 def view_files(request):
     # Get all files
     # Get all files
