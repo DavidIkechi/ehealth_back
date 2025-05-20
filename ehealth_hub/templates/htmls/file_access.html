@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Access | eHealthHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/file_access.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="{% static 'images/eHealthHub_logo.png' %}" alt="eHealthHub Logo" class="logo-header">
+        <div class="greeting">
+            {% now "H" as current_hour %}
+            {% if current_hour|add:"0" < 12 %}
+                Hello, Good Morning ☀️
+            {% elif current_hour|add:"0" < 18 %}
+                Hello, Good Afternoon 🌤️
+            {% else %}
+                Hello, Good Evening 🌙
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="file-access-card">
+            <div class="card-header">
+                <img src="{% static 'images/eHealthHub_logo.png' %}" alt="eHealthHub Logo" class="logo-main">
+            </div>
+            <div class="card-body">
+                {% if file_url %}
+                    <p class="message success">
+                        <i class="fas fa-file-alt"></i> Serving your document 💾
+                    </p>
+                    <div class="loader">
+                        <div class="spinner"></div>
+                        <span>Redirecting automatically...</span>
+                    </div>
+                    <p class="countdown" id="countdown">Redirecting in 3 seconds</p>
+                    <a href="{{ file_url }}" class="btn">
+                        <i class="fas fa-external-link-alt"></i> Open File Now
+                    </a>
+                {% else %}
+                    <p class="message error">
+                        <i class="fas fa-exclamation-circle"></i> {{ error_message }} 🚫
+                    </p>
+                    <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
+                        The file you're looking for might have been moved, deleted, or is private.
+                    </p>
+                    <a href="https://ehealth4cancer.ie" class="go-back">
+                        <i class="fas fa-arrow-left"></i> Return to Home
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 eHealthHub. All rights reserved.</p>
+    </footer>
+
+    {% if file_url %}
+    <script>
+        // Countdown timer
+        let count = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const interval = setInterval(() => {
+            count--;
+            if (count <= 0) {
+                clearInterval(interval);
+                window.location.href = "{{ file_url }}";
+            } else {
+                countdownElement.textContent = `Redirecting in ${count} second${count !== 1 ? 's' : ''}`;
+            }
+        }, 1000);
+    </script>
+    {% endif %}
+</body>
+</html>

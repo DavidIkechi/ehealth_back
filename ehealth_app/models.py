@@ -153,3 +153,25 @@ class PeopleInformation(models.Model):
 
     def __str__(self):
         return self.people.full_name
+    
+class FileUpload(models.Model):
+    """Model for file metadata referencing an external URL (instead of uploading a file)."""
+    url = models.URLField(blank=False, default="https://example.com")
+    filename = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+    is_public = models.BooleanField(default=True)
+    embargo_until = models.DateTimeField(blank=True, null=True, help_text="Keep private until this date/time")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # Auto-generate slug from filename if not provided
+        if not self.slug:
+            self.slug = slugify(self.filename)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.filename} ({'Public' if self.is_public else 'Private'})"
+
+    class Meta:
+        ordering = ['-created_at']

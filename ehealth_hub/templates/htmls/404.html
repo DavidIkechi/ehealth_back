@@ -1,38 +1,256 @@
-<!-- templates/404.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
+    <title>Page Not Found | eHealthHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --radius: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
             text-align: center;
-            padding: 50px;
-            background-color: #f4f4f9;
-            color: #333;
         }
-        h1 {
-            font-size: 3em;
-            color: #ff6347;
+
+        .error-container {
+            max-width: 500px;
+            width: 100%;
+            animation: fadeUp 0.8s ease-out;
         }
-        p {
-            font-size: 1.2em;
-            margin: 20px 0;
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        a {
+
+        .error-code {
+            font-size: 7rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
             text-decoration: none;
-            color: #007bff;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .construction-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            color: var(--warning);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .page-illustration {
+            margin: 2rem auto;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            background-color: white;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* Decorative Elements */
+        .decorative-dots {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .dots-top-right {
+            top: 100px;
+            right: 10%;
+            background-image: radial-gradient(var(--gray-300) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        .dots-bottom-left {
+            bottom: 100px;
+            left: 10%;
+            background-image: radial-gradient(var(--gray-300) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .error-code {
+                font-size: 5rem;
+            }
+            
+            .error-title {
+                font-size: 1.75rem;
+            }
+            
+            .decorative-dots {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>404 - Page Not Found</h1>
-    <p>We are building this soon. Stay tuned!</p>
-    <p><a href="/">Go back to the homepage</a></p>
+    <!-- Header -->
+    <header>
+        <a href="/">
+            <img src="/static/images/eHealthHub_logo.png" alt="eHealthHub Logo" class="logo">
+        </a>
+    </header>
+
+    <!-- Decorative Elements -->
+    <div class="decorative-dots dots-top-right"></div>
+    <div class="decorative-dots dots-bottom-left"></div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="error-container">
+            <i class="fas fa-hard-hat construction-icon"></i>
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Page Not Found</h2>
+            <p class="error-message">We're still building this page. Please check back soon as we continue to improve and expand our platform.</p>
+            
+            <!-- SVG Illustration -->
+            <div class="page-illustration">
+                <svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="60" y="30" width="280" height="180" rx="10" fill="#E5E7EB"/>
+                    <rect x="80" y="60" width="240" height="20" rx="4" fill="white"/>
+                    <rect x="80" y="100" width="180" height="10" rx="4" fill="white"/>
+                    <rect x="80" y="120" width="200" height="10" rx="4" fill="white"/>
+                    <rect x="80" y="140" width="160" height="10" rx="4" fill="white"/>
+                    <circle cx="310" cy="130" r="30" fill="#3B82F6" opacity="0.3"/>
+                    <path d="M200 190 L180 170 L220 170 Z" fill="#3B82F6"/>
+                    <path d="M310 115 L300 140 L320 140 Z" fill="#3B82F6"/>
+                    <line x1="100" y1="180" x2="140" y2="180" stroke="#3B82F6" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="160" y1="180" x2="240" y2="180" stroke="#3B82F6" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            
+            <a href="/" class="btn">
+                <i class="fas fa-home"></i> Return to Homepage
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 eHealthHub. All rights reserved.</p>
+    </footer>
 </body>
 </html>

@@ -96,23 +96,24 @@ TEMPLATES = [
 #     )
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'ehealth.sqlite3',
-#     }
-# }
-
-DATABASES ={
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'ehealth.sqlite3',
     }
 }
+
+# DATABASES ={
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#         'CONN_MAX_AGE': 200,  
+#     }
+# }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -147,7 +148,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.ehealth4cancer.org",
     "https://ehealth4cancer.ie",
     "https://www.ehealth4cancer.ie",
-
+    "http://www.ehealth4cancer.ie",
+    "http://www.ehealth4cancer.org",
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies or credentials to be sent

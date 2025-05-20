@@ -5,7 +5,7 @@ from .models import (
     PeopleSocialLink, AreaOfExpertise,
     KeyInitiatives, KeyResearchArea,
     Qualification, Membership,
-    roleBadge
+    roleBadge, FileUpload
 )
 
 # Tag admin
@@ -102,3 +102,12 @@ class roleBadgeAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at')
     search_fields = ['name']
     ordering = ['name']
+
+@admin.register(FileUpload)
+class FileUploadAdmin(admin.ModelAdmin):
+    list_display = ('filename', 'is_public', 'embargo_until', 'created_at', 'updated_at')
+    search_fields = ('filename', 'slug')
+    list_filter = ('is_public', 'embargo_until')
+    prepopulated_fields = {'slug': ('filename',)}
+    readonly_fields = ('created_at', 'updated_at')
+    ordering = ['created_at']

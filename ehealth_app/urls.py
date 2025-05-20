@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TagListView, PeopleListView, PeopleInformationListView, home, view_document
+from .views import TagListView, PeopleListView, PeopleInformationListView, home, file_view, view_document, view_files
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
@@ -11,4 +11,6 @@ urlpatterns = [
     path('api/person-info/<slug:slug>/', PeopleInformationListView.as_view(), name='people-information'),
     path('', home, name='home'),
     path('docs/', view_document, name='docs'),
+    path('files/', view_files, name='files'),
+    path('file/<slug:slug>/', file_view, name='file_view'),
 ]

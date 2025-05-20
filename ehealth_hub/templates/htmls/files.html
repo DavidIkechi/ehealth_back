@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Library | eHealthHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/files.css' %}">
+
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="/"><img src="{% static 'images/eHealthHub_logo.png' %}" alt="eHealthHub Logo"></a>
+            </div>
+            <div class="greeting">
+                <div class="user-avatar">
+                    {{ username|first|upper }}
+                </div>
+                {% now "H" as current_hour %}
+                {% if current_hour|add:"0" < 12 %}
+                    Good Morning, {{ username }}
+                {% elif current_hour|add:"0" < 18 %}
+                    Good Afternoon, {{ username }}
+                {% else %}
+                    Good Evening, {{ username }}
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <h1 class="page-title">File Library</h1>
+            <p class="subtitle">Browse all uploaded files, filter by name, and sort by various criteria.</p>
+            
+            <!-- Search and Sort Controls -->
+            <div class="controls">
+                <div class="search-form">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" value="{{ search_query }}" placeholder="Search by filename..." class="search-input">
+                </div>
+                <div class="sort-form">
+                    <label for="sort">Sort by:</label>
+                    <select name="sort" id="sortSelect" onchange="updateSort(this.value)">
+                        <option value="latest" {% if sort_by == 'latest' %}selected{% endif %}>Latest First</option>
+                        <option value="filename" {% if sort_by == 'filename' %}selected{% endif %}>Filename</option>
+                        <option value="is_public" {% if sort_by == 'is_public' %}selected{% endif %}>Public Status</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- File Table -->
+            <div class="files-container">
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Date Created</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fileTableBody">
+                        {% for file in files %}
+                        <tr data-filename="{{ file.filename|lower }}">
+                            <td>
+                                <div class="file-name">
+                                    <i class="far fa-file file-icon"></i>
+                                    {{ file.filename }}
+                                </div>
+                            </td>
+                            <td>{{ file.created_at|date:"Y-m-d H:i" }}</td>
+                            <td>
+                                {% if file.is_public %}
+                                <span class="badge badge-success">Public</span>
+                                {% else %}
+                                <span class="badge badge-neutral">Private</span>
+                                {% endif %}
+                            </td>
+                            <td class="file-actions">
+                                <button class="btn btn-outline" onclick="copyToClipboard('https://ehealth4cancer.eu/file/{{ file.slug }}')">
+                                    <i class="far fa-copy"></i> Copy Link
+                                </button>
+                                <a href="{{ file.url }}" target="_blank" class="btn btn-primary">
+                                    <i class="far fa-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 2rem;">
+                                <div style="color: var(--gray-500);">
+                                    <i class="far fa-folder-open" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                                    <p>No files found</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    Showing {{ files|length }} of {{ total_files }} files
+                </div>
+                <div class="pagination-actions">
+                    {% if has_more %}
+                    <a href="?q={{ search_query }}&sort={{ sort_by }}&limit={{ current_limit|add:10 }}" class="btn btn-outline">
+                        <i class="fas fa-plus"></i> Load More
+                    </a>
+                    {% endif %}
+                    {% if current_limit > default_limit %}
+                    <a href="?q={{ search_query }}&sort={{ sort_by }}&limit={{ default_limit }}" class="btn btn-outline">
+                        <i class="fas fa-minus"></i> Load Less
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Section -->
+        <footer style="padding: 1.5rem; text-align: center; color: var(--gray-500); font-size: 0.875rem; border-top: 1px solid var(--gray-200);">
+            <p>© 2025 eHealthHub. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">URL copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('URL copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy URL.', 'error');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toast.className = 'toast show';
+            if (type === 'success') {
+                toast.classList.add('toast-success');
+            }
+            
+            toastMessage.textContent = message;
+            
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+
+        // Client-side search
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#fileTableBody tr[data-filename]');
+            
+            rows.forEach(row => {
+                const filename = row.getAttribute('data-filename');
+                row.style.display = filename.includes(searchValue) ? '' : 'none';
+            });
+            
+            // Update the URL with the search query
+            const url = new URL(window.location);
+            url.searchParams.set('q', searchValue);
+            window.history.replaceState({}, '', url);
+        });
+        
+        // Update sort and refresh
+        function updateSort(value) {
+            const url = new URL(window.location);
+            url.searchParams.set('sort', value);
+            window.location = url.toString();
+        }
+        
+        // Auto-detect file type
+        document.querySelectorAll('.file-icon').forEach(icon => {
+            const filename = icon.parentElement.textContent.trim().toLowerCase();
+            if (filename.endsWith('.pdf')) {
+                icon.className = 'far fa-file-pdf file-icon';
+            } else if (filename.endsWith('.doc') || filename.endsWith('.docx')) {
+                icon.className = 'far fa-file-word file-icon';
+            } else if (filename.endsWith('.xls') || filename.endsWith('.xlsx') || filename.endsWith('.csv')) {
+                icon.className = 'far fa-file-excel file-icon';
+            } else if (filename.endsWith('.zip') || filename.endsWith('.rar')) {
+                icon.className = 'far fa-file-archive file-icon';
+            } else if (filename.endsWith('.jpg') || filename.endsWith('.png') || filename.endsWith('.gif')) {
+                icon.className = 'far fa-file-image file-icon';
+            }
+        });
+    </script>
+</body>
+</html>
