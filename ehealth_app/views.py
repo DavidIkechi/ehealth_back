@@ -49,6 +49,24 @@ class PeopleInformationListView(generics.RetrieveAPIView):
         except PeopleInformation.DoesNotExist:
             raise NotFound(f"No PeopleInformation found for slug: {slug}")
         
+class PeopleInformationAllView(generics.ListAPIView):  # Changed to ListAPIView
+    queryset = PeopleInformation.objects.all()
+    serializer_class = PeopleInformationSerializer
+    ordering = ['-created_at']  # Order by creation date, newest first
+
+    def get_queryset(self):
+        # Optionally, you can add filtering or additional logic here
+        return PeopleInformation.objects.all().select_related('people').prefetch_related(
+            'research_interests',
+            'areas_of_expertise',
+            'key_initiatives',
+            'key_research_areas',
+            'qualifications',
+            'memberships',
+            'role_badge',
+            'people__social_links'
+        )
+
 def home(request):
     return render(request, 'htmls/index.html')
 
